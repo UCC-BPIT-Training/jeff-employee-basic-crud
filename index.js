@@ -58,6 +58,21 @@ app.put('/employees/:id', (req, res) => {
   res.status(200).json(employees);
 })
 
+app.delete('/employees/:id', (req, res) => {
+  
+  const emp = employees.splice(employees.findIndex(x => x.id === parseInt(req.params.id)), 1)
+
+  if(!emp){
+    return res.status(404).json({ message: 'Employee not found' });
+  }
+
+  res.status(200).json(employees);
+
+})
+
+
+
+
 app.listen(process.env.PORT || 3000, () => {
   console.log('Service is running');
 });
