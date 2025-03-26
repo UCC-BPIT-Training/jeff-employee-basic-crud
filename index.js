@@ -12,10 +12,17 @@ let employees = [
 ];
 
 app.get('/employees',(_, res) => {
+  if(employees.length === 0){
+    return res.status(404).json({ message: 'Employee List Empty' });
+  }
   res.json(employees)
 })
 
 app.get('/employees/:id',(req, res) => {
+
+  if(employees.length === 0){
+    return res.status(404).json({ message: 'Employee List Empty' });
+  }
   // filter
   const emp = employees.find(x => x.id === parseInt(req.params.id))
   if(!emp){
@@ -37,13 +44,17 @@ app.post('/employees', (req, res) => {
   }else{
     max = Math.max(...employees.map(o=>o.id));
   }
-  
+
   employees.push({id: max + 1, name: name, position: position})
   res.status(200).json(employees);
 })
 
 
 app.put('/employees/:id', (req, res) => {
+
+  if(employees.length === 0){
+    return res.status(404).json({ message: 'Employee List Empty' });
+  }
 
   const {name , position} = req.body;
 
@@ -69,17 +80,17 @@ app.put('/employees/:id', (req, res) => {
 
 app.delete('/employees/:id', (req, res) => {
   
-  
+  if(employees.length === 0){
+    return res.status(404).json({ message: 'Employee List Empty' });
+  }
+
   const emp = employees.find(x => x.id === parseInt(req.params.id))
+  
   if(!emp){
     return res.status(404).json({ message: 'Employee not found' });
   }
 
   employees.splice(employees.findIndex(x => x.id === parseInt(req.params.id)), 1)
-
-  if(employees.length === 0){
-    return res.status(404).json({ message: 'Employee List Empty' });
-  }
   res.status(200).json(employees);
 
 })
