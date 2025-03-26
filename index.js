@@ -49,9 +49,12 @@ app.put('/employees/:id', (req, res) => {
     return res.status(404).json({ message: 'Details Incomplete' });
   }
 
+
   if(name){
     emp.name = name;
-  }else if(position){
+  }
+  
+  if(position){
     emp.position = position;
   }
 
