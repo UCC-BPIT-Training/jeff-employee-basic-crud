@@ -1,0 +1,13 @@
+{
+  "name": "employee-basic-crud",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch=\"*\" ."
+  },
+  "dependencies": {
+    "body-parser": "^2.1.0",
+    "express": "^5.0.1"
+  }
+}
