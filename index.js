@@ -25,13 +25,20 @@ app.get('/employees/:id',(req, res) => {
 })
 
 app.post('/employees', (req, res) => {
-
+  let max
   const {name , position} = req.body;
 
   if(!name || !position){
     return res.status(404).json({ message: 'Details Incomplete' });
   }
-  var max = Math.max(...employees.map(o=>o.id));
+
+  if(employees.length === 0){
+    max = 0
+  }else{
+    max = Math.max(...employees.map(o=>o.id));
+  }
+
+  
   employees.push({id: max + 1, name: name, position: position})
   res.status(200).json(employees);
 })
