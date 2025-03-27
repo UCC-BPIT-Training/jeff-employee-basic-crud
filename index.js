@@ -11,6 +11,19 @@ let employees = [
   { id: 2, name: 'Bob', position: 'HR Specialist' },
 ];
 
+
+app.get('/employees/search',(req, res) => {
+  if(employees.length === 0){
+    return res.status(404).json({ message: 'Employee List Empty' });
+  }
+  
+  const emp = employees.filter(x => (x.name.toLowerCase() === req.query.name.toLowerCase()))
+  if(!emp || emp.length === 0){
+    return res.status(404).json({ message: 'Employee not found' });
+  }
+  res.status(200).json(emp);
+})
+
 app.get('/employees',(_, res) => {
   if(employees.length === 0){
     return res.status(404).json({ message: 'Employee List Empty' });
@@ -94,6 +107,8 @@ app.delete('/employees/:id', (req, res) => {
   res.status(200).json(employees);
 
 })
+
+
 
 
 
